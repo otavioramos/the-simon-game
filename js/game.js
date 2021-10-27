@@ -1,6 +1,15 @@
 var gamePattern = []
 
+var userClickedPattern = []
+
 var buttonColours = ["red", "blue", "green", "yellow"]
+
+$(".btn").click(handleClickButtons)
+
+function handleClickButtons() {
+    var userChosenColour = this.getAttribute("id")
+    userClickedPattern.push(userChosenColour)
+}
 
 function getNextColour() {
     var randomChosenColour = buttonColours[nextSequence()]
