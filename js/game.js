@@ -4,7 +4,14 @@ var userClickedPattern = []
 
 var buttonColours = ["red", "blue", "green", "yellow"]
 
+var level = 0
+
 $(".btn").click(handleClickButtons)
+
+$(document).keydown(() => {
+    $("#level-title").text(`Level ${level}`)
+    getNextColour()
+})
 
 function handleClickButtons() {
     var userChosenColour = this.getAttribute("id")
@@ -17,11 +24,12 @@ function getNextColour() {
     var randomChosenColour = buttonColours[nextSequence()]
     gamePattern.push(randomChosenColour)
     animateChosenButton(randomChosenColour)
-    playSound(randomChosenColour)    
+    playSound(randomChosenColour)
 }
 
 function nextSequence() {
     var randomNumber = Math.round(Math.random() * 3)
+    level++
     return randomNumber
 }
 
