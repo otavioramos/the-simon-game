@@ -9,6 +9,7 @@ $(".btn").click(handleClickButtons)
 function handleClickButtons() {
     var userChosenColour = this.getAttribute("id")
     userClickedPattern.push(userChosenColour)
+    playSound(userChosenColour)
 }
 
 function getNextColour() {
@@ -47,6 +48,5 @@ function playSound(chosenColour) {
             break;
         default:
             break;
-    }
-    
+    }  
 }
