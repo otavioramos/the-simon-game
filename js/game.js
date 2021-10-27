@@ -9,6 +9,7 @@ $(".btn").click(handleClickButtons)
 function handleClickButtons() {
     var userChosenColour = this.getAttribute("id")
     userClickedPattern.push(userChosenColour)
+    animatePress(userChosenColour)
     playSound(userChosenColour)
 }
 
@@ -22,6 +23,14 @@ function getNextColour() {
 function nextSequence() {
     var randomNumber = Math.round(Math.random() * 3)
     return randomNumber
+}
+
+function animatePress(currentColour) {
+    $(`#${currentColour}`).addClass("pressed")
+
+    setTimeout(() => { 
+        $(`#${currentColour}`).removeClass("pressed")
+    }, 100);
 }
 
 function animateChosenButton(chosenColour) {
