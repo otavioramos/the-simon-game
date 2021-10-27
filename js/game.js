@@ -18,9 +18,11 @@ function handleClickButtons() {
     userClickedPattern.push(userChosenColour)
     animatePress(userChosenColour)
     playSound(userChosenColour)
+    checkAnswer(userClickedPattern.length-1)
 }
 
 function getNextColour() {
+    userClickedPattern = []
     var randomChosenColour = buttonColours[nextSequence()]
     gamePattern.push(randomChosenColour)
     animateChosenButton(randomChosenColour)
@@ -31,6 +33,29 @@ function nextSequence() {
     var randomNumber = Math.round(Math.random() * 3)
     level++
     return randomNumber
+}
+
+function checkAnswer(currentLevel) {
+    if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
+        console.log("success")
+    } else {
+        var bodyElement = $("body")
+        bodyElement.addClass("game-over")
+        var wrong = new Audio("sounds/wrong.mp3")
+        wrong.play()
+
+        setTimeout( () => {
+            bodyElement.removeClass("game-over")
+        }, 200)
+
+        $("#level-title").text("Game Over, Press Any Key to Restart")
+    }
+
+    if (userClickedPattern.length === gamePattern.length){
+        setTimeout( () => {
+          getNextColour();
+        }, 1000);
+    }
 }
 
 function animatePress(currentColour) {
