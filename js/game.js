@@ -4,7 +4,9 @@ var buttonColours = ["red", "blue", "green", "yellow"]
 
 function getNextColour() {
     var randomChosenColour = buttonColours[nextSequence()]
-    return randomChosenColour;
+    gamePattern.push(randomChosenColour)
+    animateChosenButton(randomChosenColour)
+    playSound(randomChosenColour)    
 }
 
 function nextSequence() {
@@ -12,4 +14,30 @@ function nextSequence() {
     return randomNumber
 }
 
-gamePattern.push(getNextColour())
+function animateChosenButton(chosenColour) {
+    $(`#${chosenColour}`).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+}
+
+function playSound(chosenColour) {
+    switch (chosenColour) {
+        case "red":
+            var red = new Audio("sounds/red.mp3")
+            red.play()
+            break;
+        case "blue":
+            var blue = new Audio("sounds/blue.mp3")
+            blue.play()
+            break;
+        case "green":
+            var green = new Audio("sounds/green.mp3")
+            green.play()
+            break;
+        case "yellow":
+            var yellow = new Audio("sounds/yellow.mp3")
+            yellow.play()
+            break;
+        default:
+            break;
+    }
+    
+}
