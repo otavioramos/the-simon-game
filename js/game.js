@@ -5,12 +5,16 @@ var userClickedPattern = []
 var buttonColours = ["red", "blue", "green", "yellow"]
 
 var level = 0
+var started = false
 
 $(".btn").click(handleClickButtons)
 
 $(document).keydown(() => {
-    $("#level-title").text(`Level ${level}`)
-    getNextColour()
+    if (!started) {
+        $("#level-title").text(`Level ${level}`)
+        getNextColour()
+        started = true
+    }
 })
 
 function handleClickButtons() {
@@ -30,14 +34,19 @@ function getNextColour() {
 }
 
 function nextSequence() {
-    var randomNumber = Math.round(Math.random() * 3)
     level++
+    $("#level-title").text("Level " + level);
+    var randomNumber = Math.round(Math.random() * 3)
     return randomNumber
 }
 
 function checkAnswer(currentLevel) {
     if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
-        console.log("success")
+        if (userClickedPattern.length === gamePattern.length){
+            setTimeout( () => {
+              getNextColour();
+            }, 1000);
+        }
     } else {
         var bodyElement = $("body")
         bodyElement.addClass("game-over")
@@ -49,13 +58,16 @@ function checkAnswer(currentLevel) {
         }, 200)
 
         $("#level-title").text("Game Over, Press Any Key to Restart")
+
+        startOver()
     }
 
-    if (userClickedPattern.length === gamePattern.length){
-        setTimeout( () => {
-          getNextColour();
-        }, 1000);
-    }
+}
+
+function startOver() {
+    level = 0
+    gamePattern = []
+    started = false
 }
 
 function animatePress(currentColour) {
